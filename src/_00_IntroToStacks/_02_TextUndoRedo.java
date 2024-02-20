@@ -4,21 +4,22 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Stack;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class _02_TextUndoRedo implements KeyListener {
-    public static void main(String[] args) {
-		
-	}
+  
     String txtfld = ""  ;
+    JLabel jell = new JLabel("test");
+    Stack<Character> restore = new Stack<Character>();
     		// Create a JFrame with a JPanel and a JLabel.
     public void setup(){ 
 	JFrame jeff = new JFrame();
      JPanel jepp = new JPanel();
-     JLabel jell = new JLabel("test");
+     
      jell.setVisible(true);
      Dimension d = new Dimension(300, 125);
      
@@ -48,8 +49,26 @@ public class _02_TextUndoRedo implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
+		if(((e.getKeyCode()>=65 && e.getKeyCode()<=90)) || e.getKeyCode()==32) {
 		txtfld += e.getKeyChar();
 		System.out.println(txtfld);
+		jell.setText(txtfld);
+		}
+		
+		if(e.getKeyCode()==8) {
+			StringBuilder txtbld = new StringBuilder(txtfld);
+			restore.add(txtfld.charAt(txtfld.length()-1));
+			txtbld.deleteCharAt(txtfld.length()-1);
+			txtfld = txtbld.toString();
+			jell.setText(txtfld);
+			
+		}
+		
+		if(e.getKeyCode()==17) {
+			txtfld += restore.pop().toString();
+			jell.setText(txtfld);
+			System.out.println(restore.toString());
+		}
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
