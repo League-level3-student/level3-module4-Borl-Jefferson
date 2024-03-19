@@ -18,7 +18,7 @@ cells = new Cell[rows][cols];
 	for (int j = 0; j < cols; j++) {
 		 cells[i][j] = new Cell(i, j);
 	}
-}
+} 
         // 3. Iterate through each cell and initialize it
         //    using row and col as the cell location
 for (int i = 0; i < rows; i++) {

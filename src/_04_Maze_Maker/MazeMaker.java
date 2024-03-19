@@ -75,7 +75,7 @@ rc.setBeenVisited(true);
         // C5. call the selectNextPath method with the current cell
 selectNextPath(maze.getCell(cc.getRow(), cc.getCol()));
 }
-
+ 
 		// D. if all neighbors are visited
         // D1. if the stack is not empty
 else if(!uncheckedCells.isEmpty()){
