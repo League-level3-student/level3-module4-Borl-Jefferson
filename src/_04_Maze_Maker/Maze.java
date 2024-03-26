@@ -3,28 +3,22 @@ import java.awt.Graphics;
 
 public class Maze {
     // 1. Create a 2D array of cells. Don't initialize it
-	
-	Cell cel;
+	Cell[][] cells;
     private int rows;
     private int cols;
-Cell[][] cells;
+
+
     public Maze(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
 
         // 2. Initialize the cells array using the rows and cols variables
 cells = new Cell[rows][cols];
-        for (int i = 0; i < rows; i++) {
-	for (int j = 0; j < cols; j++) {
-		 cells[i][j] = new Cell(i, j);
-	}
-} 
         // 3. Iterate through each cell and initialize it
         //    using row and col as the cell location
 for (int i = 0; i < rows; i++) {
 	for (int j = 0; j < cols; j++) {
-		cells[i][j].setCol(i);
-		cells[i][j].setRow(j);
+		cells[i][j] = new Cell(i, j);
 	}
 	}
     }
@@ -40,7 +34,7 @@ for (int i = 0; i < cells.length; i++) {
 
     // 5. This method returns the selected cell
     public Cell getCell(int row, int col){
-        return cel = new Cell(row, col);
+        return cells[row][col];
     }
 
     public int getRows() {

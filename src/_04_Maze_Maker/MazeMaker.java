@@ -23,24 +23,25 @@ public class MazeMaker {
         int by=0;
         int ex=0;
         int ey=0;
-        /*
-boolean top = ra.nextBoolean();
-boolean side = ra.nextBoolean();
-if(top&&side)	{bx=0;	by=ra.nextInt(r); maze.getCell(by, bx).setWestWall(false);		ex=0;	ey=ra.nextInt(r); maze.getCell(ey, ex).setEastWall(false);}
-if(!top&&side)	{bx=0;	by=ra.nextInt(r); maze.getCell(by, bx).setEastWall(false);		ex=0;	ey=ra.nextInt(r); maze.getCell(ey, ex).setWestWall(false);}
-if(!top&&!side)	{by=0;	bx=ra.nextInt(c); maze.getCell(by, bx).setSouthWall(false);		ey=0;	ex=ra.nextInt(c); maze.getCell(ey, ex).setNorthWall(false);}
-*/
 
-by=1;	
-bx=ra.nextInt(c-1); 
+
+bx=0;	
+by=ra.nextInt(5); 
+by=0;
 maze.getCell(by, bx).setNorthWall(false);		
-ey=0;	
-ex=ra.nextInt(c-1); 
+ex=4;	
+ey=ra.nextInt(5);
+ey=4;
 maze.getCell(ey, ex).setSouthWall(false);
+System.out.println(by + " " + ey + " by ey");
 
+by=ra.nextInt(5); 
+ey=ra.nextInt(5);
+Cell cel = maze.getCell(by, ey);
 
-selectNextPath(maze.getCell(by, bx));
+selectNextPath(cel);
 	
+
 	// 1. Pick a random cell along the border and remove its exterior wall.
         //    This will be the starting point. Then select a random cell along
         //    the opposite wall and remove its exterior wall. This will be the
@@ -60,25 +61,25 @@ selectNextPath(maze.getCell(by, bx));
     //	System.out.println(cc.getCol() + "-- <-c r-> " + cc.getRow());
 cc.setBeenVisited(true);
         // B. check for unvisited neighbors using the cell
-if(getun.size()>0) {
+if(getun.isEmpty() == false) {
         // C. if has unvisited neighbors,
         // C1. select one at random.
- Cell rc = getun.get(ra.nextInt(getun.size()-1));
+ //Cell rc = getun.get(ra.nextInt(getun.size()-1));
  //rc.setBeenVisited(true);
 		// C2. push it to the stack
-uncheckedCells.push(rc);
+uncheckedCells.push(getun.get(ra.nextInt(getun.size())));
         // C3. remove the wall between the two cells
-removeWalls(cc, rc);
+removeWalls(cc, uncheckedCells.peek());
         // C4. make the new cell the current cell and SET it as visited
-cc=rc;
-rc.setBeenVisited(true);
+uncheckedCells.peek().setBeenVisited(true);
+cc=uncheckedCells.peek();
         // C5. call the selectNextPath method with the current cell
-selectNextPath(maze.getCell(cc.getRow(), cc.getCol()));
+selectNextPath(cc);
 }
  
 		// D. if all neighbors are visited
         // D1. if the stack is not empty
-else if(!uncheckedCells.isEmpty()){
+else if(getun.isEmpty() == true && uncheckedCells.isEmpty() == false){
         // D1a. pop a cell from the stack
         // D1b. make that the current cell	
 cc=uncheckedCells.pop();
